@@ -1,3 +1,12 @@
+set(CMAKE_C_COMPILER "clang")
+set(CMAKE_CXX_COMPILER "clang++")
+
+# 加入REQUIRED 参数,如果找不到JNI,就报错退出
+find_package(JNI REQUIRED)
+# 加入jni支持
+include_directories(${JAVA_INCLUDE_PATH})
+include_directories(${JAVA_INCLUDE_PATH2})
+
 set(
   WEBP_HOME "${CMAKE_SOURCE_DIR}/libwebp"
   CACHE FILEPATH "libwebp source directory"
@@ -12,7 +21,7 @@ add_library( webp-imageio SHARED ${JNI_OBJS} )
 include_directories( "${WEBP_HOME}/src" )
 target_link_libraries( webp-imageio webp )
 
-find_package ( JNI REQUIRED COMPONENTS Development )
+find_package ( JNI REQUIRED)
 include_directories( ${JNI_INCLUDE_DIRS} )
 
 if( NOT MSVC )
